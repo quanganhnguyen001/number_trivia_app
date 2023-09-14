@@ -1,9 +1,9 @@
+import '../../../../core/error/failures.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../entities/number_trivia.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/interfaces/failure.dart';
-import '../../../../core/interfaces/usecase.dart';
-import '../entities/number_trivia_entity.dart';
-import '../repositories/number_trivia_repository.dart';
+import '../respositories/number_trivia_repository.dart';
 
 class GetRandomNumberTrivia implements UseCase<NumberTrivia, NoParams> {
   final NumberTriviaRepository repository;
@@ -11,7 +11,7 @@ class GetRandomNumberTrivia implements UseCase<NumberTrivia, NoParams> {
   GetRandomNumberTrivia(this.repository);
 
   @override
-  Future<Either<Failure, NumberTrivia>>? call(NoParams noParams) {
-    return repository.getRandomNumberTrivia();
+  Future<Either<Failure, NumberTrivia>?> call(NoParams noParams) async {
+    return await repository.getRandomNumberTrivia();
   }
 }

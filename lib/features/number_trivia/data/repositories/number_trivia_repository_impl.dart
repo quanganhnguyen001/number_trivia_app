@@ -1,28 +1,29 @@
+import '../../../../core/error/exceptions.dart';
+import '../../../../core/network/network_info.dart';
+import '../datasources/number_trivia_local_data_soucre.dart';
+import '../datasources/number_trivia_remote_data_source.dart';
+import '../models/number_trivia_model.dart';
+import '../../domain/entities/number_trivia.dart';
+import '../../../../core/error/failures.dart';
+
+import '../../domain/respositories/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:number_trivia_app/core/interfaces/failure.dart';
-import 'package:number_trivia_app/features/number_trivia/domain/entities/number_trivia_entity.dart';
-import 'package:number_trivia_app/features/number_trivia/domain/repositories/number_trivia_repository.dart';
-
-import '../../../../core/interfaces/exceptions.dart';
-import '../../../../core/interfaces/network_info.dart';
-import '../datasources/number_trivia_local_datasource.dart';
-import '../datasources/number_trivia_remote_datasource.dart';
-import '../models/number_trivia_models.dart';
-
-typedef _ConcreteOrRandomChooser = Future<NumberTriviaModel> Function();
+typedef Future<NumberTriviaModel> _ConcreteOrRandomChooser();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
   final NumberTriviaLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
+
   NumberTriviaRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
   });
+
   @override
-  Future<Either<Failure, NumberTrivia>>? getConcreteNumberTrivia(
+  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
       int number) async {
     return await _getTrivia(() {
       return remoteDataSource.getConcreteNumberTrivia(number)!;
@@ -49,7 +50,7 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
     } else {
       try {
         final localTrivia = await localDataSource.getLastNumberTrivia();
-        return Right(localTrivia);
+        return Right(localTrivia!);
       } on CacheException {
         return Left(CacheFailure());
       }
