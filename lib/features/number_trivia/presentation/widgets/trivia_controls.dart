@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/number_trivia_bloc.dart';
 
@@ -23,7 +23,7 @@ class _TriviaControlsState extends State<TriviaControls> {
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a number',
           ),
@@ -34,23 +34,23 @@ class _TriviaControlsState extends State<TriviaControls> {
             addConcrete();
           },
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Row(
           children: [
             Expanded(
               child: ElevatedButton(
-                child: Text('Search'),
                 onPressed: addConcrete,
+                child: const Text('Search'),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.grey.shade500,
+                  backgroundColor: Colors.grey.shade500,
                 ),
-                child: Text('Get random trivia'),
                 onPressed: addRandom,
+                child: const Text('Get random trivia'),
               ),
             ),
           ],

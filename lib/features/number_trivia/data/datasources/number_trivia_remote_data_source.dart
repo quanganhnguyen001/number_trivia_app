@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import '../../../../core/error/exceptions.dart';
 import '../models/number_trivia_model.dart';

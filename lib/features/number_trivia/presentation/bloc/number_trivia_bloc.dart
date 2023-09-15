@@ -1,4 +1,5 @@
-import 'package:dartz/dartz.dart';
+// ignore_for_file: constant_identifier_names
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,8 +33,8 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
     on<GetTriviaForConcreteNumber>((event, emit) async {
       final inputEither =
           inputConverter.stringToUnsignedInteger(event.numberString);
-      inputEither.fold((failure) {
-        emit(Error(message: INVALID_INPUT_FAILURE_MESSAGE));
+      await inputEither.fold((failure) {
+        emit(const Error(message: INVALID_INPUT_FAILURE_MESSAGE));
       }, (integer) async {
         emit(Loading());
         final failureOrTrivia =
